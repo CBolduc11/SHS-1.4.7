@@ -1,11 +1,11 @@
-import random
+# import random
 import os.path
 import PIL
 import PIL.imagedraw
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
-possible_quotes = ['Family is not an important thing. Its everything.', 'The most important thing in the world is family and love.', 'You dont choose your family. They are Gods gift to you, as you are to them.']
-quote_used = possible_quotes[random.randint(1,3)]
+# possible_quotes = ['Family is not an important thing. Its everything.', 'The most important thing in the world is family and love.', 'You dont choose your family. They are Gods gift to you, as you are to them.']
+# quote_used = possible_quotes[random.randint(1,3)]
 
 def frame(original_image, color, frame_width):
     '''Draws a frame around the specified image original_image, in the color and width specified.
@@ -29,8 +29,15 @@ def frame(original_image, color, frame_width):
     
     #Adds the Pictures to the corners
     
-    #Adds quote to bottom
+    #Returns Pictures
+    frame_image = PIL.image.new('RGBA', (width,height), (r,g,b,255))
+    result = original_image.copy()
+    result.paste(original_image, (0,0), mask=frame_mask)
+    return result
     
+    #Adds quote to bottom
+        #Decided not to add quote to the bottom due to time constraints
+        
 def get_images(directory=None):
     """ Returns PIL.Image objects for all the images in directory.
     
