@@ -28,7 +28,8 @@ def frame(original_image, color, frame_width):
     drawing_layer.rectangle((0,0,thickness,height), fill=(r,g,b,255)) #left rectangle
     
     #Adds the Pictures to the corners
-     
+    
+    #Adds quote to bottom
     
 def get_images(directory=None):
     """ Returns PIL.Image objects for all the images in directory.
@@ -56,13 +57,12 @@ def get_images(directory=None):
             pass # do nothing with errors tying to open non-images
     return image_list, file_list
     
-    def frame_all_images(directory=None, color=(255,0,0), frame_width=0.10):
+def frame_all_images(directory=None, color=(255,0,0), frame_width=0.10):
     """ Saves a modfied version of each image in directory.
     
     Uses current directory if no directory is specified. 
     Places images in subdirectory 'modified', creating it if it does not exist.
-    New image files are of type PNG and have transparent rounded corners.
-    """
+    New image files are of type PNG and have transparent rounded corners."""
     
     if directory == None:
         directory = os.getcwd() # Use working directory if unspecified
