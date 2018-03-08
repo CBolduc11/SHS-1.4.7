@@ -1,7 +1,7 @@
 # import random
 import os.path
 import PIL
-import PIL.imagedraw
+
 # import matplotlib.pyplot as plt
 
 # possible_quotes = ['Family is not an important thing. Its everything.', 'The most important thing in the world is family and love.', 'You dont choose your family. They are Gods gift to you, as you are to them.']
