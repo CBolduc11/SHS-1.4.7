@@ -1,8 +1,12 @@
 # import random
 import os.path
 import PIL
+<<<<<<< HEAD
 import matplotlib.pyplot as plt
 import PIL.ImageDraw
+=======
+import PIL.imagedraw
+>>>>>>> 7fe56e7b9b85689848bdfb4840ab9e86987ef53f
 
 # import matplotlib.pyplot as plt
 
@@ -28,8 +32,12 @@ def frame(original_image, color, frame_width):
     drawing_layer.rectangle((0,height-thickness,width,height), fill=(r,g,b,255)) #bottom rectangle
     drawing_layer.rectangle((width,0,width-thickness,height), fill=(r,g,b,255)) #right rectangle
     drawing_layer.rectangle((0,0,thickness,height), fill=(r,g,b,255)) #left rectangle
+    drawing_layer.rectangle((0,thickness,thickness,thickness), fill=(255-r,255-g,255-b,255))#top left square
+    drawing_layer.rectangle((0,height,thickness,height-thickness), fill=(255-r,255-g,255-b,255))#bottom left rectangle
+    drawing_layer.rectangle((width,thickness,width-thickness,thickness), fill=(255-r,255-g,255-b,255))#top right rectangle
+    drawing_layer.rectangle((width,height,width-thickness,height-thickness), fill=(255-r,255-g,255,b,255))#bottom right square
     
-    #Adds the Pictures to the corners
+    #Adds the crest to bottom
     
     #Returns Pictures
     frame_image = PIL.image.new('RGBA', (width,height), (r,g,b,255))
