@@ -1,7 +1,7 @@
 # import random
 import os.path
 import PIL
-import PIL.imagedraw
+import PIL.ImageDraw
 
 # import matplotlib.pyplot as plt
 
