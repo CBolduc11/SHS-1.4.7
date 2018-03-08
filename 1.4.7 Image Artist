@@ -1,6 +1,8 @@
 # import random
 import os.path
 import PIL
+import matplotlib.pyplot as plt
+import PIL.ImageDraw
 
 # import matplotlib.pyplot as plt
 
