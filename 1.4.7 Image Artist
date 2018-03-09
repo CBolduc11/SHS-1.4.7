@@ -39,7 +39,8 @@ def frame(original_image, color, frame_width):
     #Adds the crest to bottom
     crest = image.open('crest.jpeg')
     resized_crest = crest.resize((thickness,thickness))
-    frame_mask.paste(resized_crest, (((width/2)-(thickness/2)),height-(thickness)*2))#top left crest
+    crest_copy = resized_crest.copy()
+    #top left crest
     #frame_mask.paste(resized_crest, (width-thickness,0))#top right crest
     #frame_mask.paste(resized_crest, (0,height-thickness))#bottom left crest
     #frame_mask.paste(resized_crest, (height-thickness,width-thickness))#bottom right crest
@@ -49,6 +50,8 @@ def frame(original_image, color, frame_width):
     img = image.open(original_image)
     result = img.copy()
     result.paste(frame_image, (0,0), mask=frame_mask)
+    result.paste(crest_copy, (((width/2)-(thickness/2)),height-(thickness)))
+    result.save('edited_version.jpeg')
     return result
     
     #Adds quote to bottom
