@@ -37,6 +37,12 @@ def frame(original_image, color, frame_width):
     drawing_layer.rectangle((width,height,width-thickness,height-thickness), fill=(255-r,255-g,255-b,0))#bottom right square
     
     #Adds the crest to bottom
+    crest = image.open('crest.jpeg')
+    resized_crest = crest.resize((thickness,thickness))
+    frame_mask.paste(resized_crest, (((width/2)-(thickness/2)),height-(thickness)*2))#top left crest
+    #frame_mask.paste(resized_crest, (width-thickness,0))#top right crest
+    #frame_mask.paste(resized_crest, (0,height-thickness))#bottom left crest
+    #frame_mask.paste(resized_crest, (height-thickness,width-thickness))#bottom right crest
     
     #Returns Pictures
     frame_image = image.new('RGBA', (width,height), (r,g,b,255))
