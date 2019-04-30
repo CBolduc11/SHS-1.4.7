@@ -1,12 +1,9 @@
 # import random
+from __future__ import print_function
 import os.path
 import PIL
-<<<<<<< HEAD
-import matplotlib.pyplot as plt
 import PIL.ImageDraw
-=======
-import PIL.imagedraw
->>>>>>> 7fe56e7b9b85689848bdfb4840ab9e86987ef53f
+import PIL.Image as image
 
 # import matplotlib.pyplot as plt
 
@@ -19,12 +16,14 @@ def frame(original_image, color, frame_width):
     Color is defined as a three-tuple r,g,b'''
     
     #Defines size of frame
-    width, height = original_image.size
+    img = image.open(original_image)
+    width,height = img.size
     thickness = int(frame_width * min(width, height))
+    
     
     #Set up color palette and new frame
     r,g,b = color
-    frame_mask = PIL.image.new('RGBA', (width, height), (127, 0, 127, 0))
+    frame_mask = image.new('RGBA', (width, height), (127, 0, 127, 0))
     drawing_layer = PIL.ImageDraw.Draw(frame_mask)
     
     #Draw squares to outline frame
@@ -32,17 +31,35 @@ def frame(original_image, color, frame_width):
     drawing_layer.rectangle((0,height-thickness,width,height), fill=(r,g,b,255)) #bottom rectangle
     drawing_layer.rectangle((width,0,width-thickness,height), fill=(r,g,b,255)) #right rectangle
     drawing_layer.rectangle((0,0,thickness,height), fill=(r,g,b,255)) #left rectangle
-    drawing_layer.rectangle((0,thickness,thickness,thickness), fill=(255-r,255-g,255-b,255))#top left square
-    drawing_layer.rectangle((0,height,thickness,height-thickness), fill=(255-r,255-g,255-b,255))#bottom left rectangle
-    drawing_layer.rectangle((width,thickness,width-thickness,thickness), fill=(255-r,255-g,255-b,255))#top right rectangle
-    drawing_layer.rectangle((width,height,width-thickness,height-thickness), fill=(255-r,255-g,255,b,255))#bottom right square
+    #drawing_layer.rectangle((0,0,thickness,thickness), fill=(0,205,95,50))#top left square
+    #drawing_layer.rectangle((0,height,thickness,height-thickness), fill=(0,205,95,50))#bottom left rectangle
+    #drawing_layer.rectangle((width,thickness,width-thickness,0), fill=(0,205,95,50))#top right rectangle
+    #drawing_layer.rectangle((width,height,width-thickness,height-thickness), fill=(0,205,95,50))#bottom right square
     
     #Adds the crest to bottom
+    crest = image.open('logo.jpg')
+    resized_crest = crest.resize((thickness,thickness))
+    crest_copy = resized_crest.copy()
+    #top left crest
+    #frame_mask.paste(resized_crest, (width-thickness,0))#top right crest
+    #frame_mask.paste(resized_crest, (0,height-thickness))#bottom left crest
+    #frame_mask.paste(resized_crest, (height-thickness,width-thickness))#bottom right crest
     
     #Returns Pictures
-    frame_image = PIL.image.new('RGBA', (width,height), (r,g,b,255))
-    result = original_image.copy()
-    result.paste(original_image, (0,0), mask=frame_mask)
+    frame_image = image.new('RGBA', (width,height), (r,g,b,255))
+    img = image.open(original_image)
+    result = img.copy()
+    
+    #Draws corner squares
+    drawing_layer.rectangle((0,0,thickness,thickness), fill=(0,205,95,50))#top left square
+    drawing_layer.rectangle((0,height,thickness,height-thickness), fill=(0,205,95,50))#bottom left rectangle
+    drawing_layer.rectangle((width,thickness,width-thickness,0), fill=(0,205,95,50))#top right rectangle
+    drawing_layer.rectangle((width,height,width-thickness,height-thickness), fill=(0,205,95,50))#bottom right square
+    
+    #Combines all images into one
+    result.paste(frame_image, (0,0), mask=frame_mask)
+    result.paste(crest_copy, (((width/2)-thickness,height-(thickness))))
+    result.save('edited_version.jpeg')
     return result
     
     #Adds quote to bottom
@@ -97,9 +114,9 @@ def frame_all_images(directory=None, color=(255,0,0), frame_width=0.10):
     # Go through the images and save modified versions
     for n in range(len(image_list)):
         # Parse the filename
-        print n
+        return n
         filename, filetype = file_list[n].split('.')
-        print n
+        return n
         
         # Round the corners with default percent of radius
         curr_image = image_list[n]
